@@ -39,6 +39,19 @@ function updateUAVisibility() {
   });
 }
 
+// Function to add scroll event listeners to all scrollable containers in the popup
+function addScrollListeners() {
+  const scrollableContainers = document.querySelectorAll('.gmp-popup .cdk-virtual-scroll-viewport'); 
+
+  scrollableContainers.forEach(container => {
+    container.addEventListener('scroll', updateUAVisibility);
+  });
+}
+
+// Call the function to add scroll listeners
+addScrollListeners();
+
+
 // Function to create the checkbox and attach event handlers
 function createToggleSwitch() {
   const productTabBar = document.querySelector('.gmp-product-tab-bar .mat-mdc-tab-labels');
@@ -73,7 +86,8 @@ function createToggleSwitch() {
   }
 }
 
-// Function to adjust scrollbar visibility
+// TEST - Function to adjust scrollbar visibility
+// this was an attempt to remove the ability to scroll if there is nothing to scroll to (preventing some of the scroll issues)
 function adjustScrollbar() {
   const scrollableContainer = document.querySelector('.gmp-popup .cdk-virtual-scroll-viewport');
   if (scrollableContainer) {
