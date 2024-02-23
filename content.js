@@ -7,30 +7,15 @@ function addClickListeners() {
   });
 }
 
-function updateAccountVisibility(accountElement) {
-  const checkbox = document.querySelector('#ua-toggle');
-  if (!checkbox) return;
-
-  const isChecked = checkbox.checked;
-  if (accountElement.textContent.trim().startsWith('UA-')) {
-    const listItem = accountElement.closest('.gmp-entity-item-row');
-    if (listItem) {
-      listItem.style.display = isChecked ? 'none' : '';
-    }
-  }
-}
-
-// Helper function to update the visibility of UA accounts based on the checkbox state
 function updateUAVisibility() {
-  const accountElements = document.querySelectorAll('.gmp-popup .gmp-before-text');
   const checkbox = document.querySelector('#ua-toggle');
-  // If the checkbox doesn't exist, stop the function
   if (!checkbox) return;
 
   const isChecked = checkbox.checked;
+  const accountElements = document.querySelectorAll('.gmp-entity-item-content, .gmp-popup .gmp-before-text');
+
   accountElements.forEach(el => {
-    const accountId = el.textContent.trim();
-    if (accountId.startsWith('UA-')) {
+    if (el.textContent.trim().startsWith('UA-')) {
       const listItem = el.closest('.gmp-entity-item-row');
       if (listItem) {
         listItem.style.display = isChecked ? 'none' : '';
@@ -38,6 +23,7 @@ function updateUAVisibility() {
     }
   });
 }
+
 
 // Function to add scroll event listeners to all scrollable containers in the popup
 function addScrollListeners() {
@@ -111,7 +97,7 @@ function setupIntersectionObserver() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        updateAccountVisibility(entry.target);
+        updateUAVisibility(entry.target);
       }
     });
   });
